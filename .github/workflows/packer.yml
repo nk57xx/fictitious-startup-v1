@@ -1,4 +1,4 @@
-name: create_custom_ami
+name: Create custom AMI
 
 on:
     release:
