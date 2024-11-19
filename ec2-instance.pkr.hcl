@@ -63,9 +63,9 @@ build {
     ]
   }
 
-  provisioner "shell" {
-    script = "setup.sh"
-  }
+  #provisioner "shell" {
+  #  script = "setup.sh"
+  #}
 
   post-processor "amazon-ami-management" {
     regions = ["eu-west-1"]
