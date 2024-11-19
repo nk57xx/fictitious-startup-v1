@@ -8,14 +8,14 @@ on:
 env:
     PACKER_VERSION: "1.11.2"
 
+permissions:
+    id-token: write
+    contents: read
+
 jobs:
     build_ami:
         name: build ami using packer
         runs-on: ubuntu-latest
-
-        permissions:
-            id-token: write
-            contents: read
 
         steps:
             # Step 1: Checkout Repo
