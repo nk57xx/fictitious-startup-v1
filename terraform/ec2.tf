@@ -34,6 +34,7 @@ resource "aws_instance" "ec2_instance" {
   subnet_id                   = data.tfe_outputs.network.values.public_subnets[0]
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.mvp_sg.id]
+  iam_instance_profile        = aws_iam_instance_profile.ec2_ssm.name
   tags = {
     Name    = var.ec2_instance_name
     Version = var.custom_ami_version
