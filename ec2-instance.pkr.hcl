@@ -65,7 +65,7 @@ build {
     script = "setup.sh"
   }
 
-  post_processor "amazon-ami-management" {
+  post-processor "amazon-ami-management" {
     regions = ["eu-west-1"]
     identifier = local.ami_name
     keep_releases = 2
