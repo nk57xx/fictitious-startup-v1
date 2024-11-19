@@ -46,8 +46,8 @@ jobs:
               uses: aws-actions/configure-aws-credentials@v4
               with:
                 audience: sts.amazonaws.com
-                role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
-                aws-region: ${{ secrets.AWS_REGION }}
+                role-to-assume: arn:aws:iam::762233724830:role/GitHubActions-mvp
+                aws-region: eu-west-1
             
             # Step 6: Packer Build
             - name: Packer build
