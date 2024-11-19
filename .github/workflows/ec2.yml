@@ -36,13 +36,18 @@ jobs:
               run: terraform init
 
             - name: Terraform Plan
+              env:
+                vars: 'custom_ami_version=${{ inputs.ami_version }}'
               id: plan
               run: terraform plan -var "custom_ami_version=${{ inputs.ami_version }}"
 
             - name: Terraform Apply
+              if: github.event_name == 'workflow_dispatch'
+              env:
+                vars: 'custom_ami_version=${{ inputs.ami_version }}'
               id: apply
               run: terraform apply -var "custom_ami_version=${{ inputs.ami_version }}" -auto-approve
 
             - name: Public IP Output
               run: |
-                echo URL="http://$(terraform output ec2_public_ip | tr -d '""')" >> $GITHUB_OUTPUT
+                echo URL="http://$(terraform output ec2_public_ip | tr -d '""')" >> "$GITHUB_OUTPUT"
