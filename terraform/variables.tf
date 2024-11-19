@@ -43,3 +43,9 @@ variable "az" {
   type        = string
   default     = "eu-west-1c"
 }
+
+variable "policy_arn" {
+  description = "IAM policy ARN"
+  type        = string
+  default     = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}

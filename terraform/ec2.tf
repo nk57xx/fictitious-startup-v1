@@ -35,7 +35,8 @@ resource "aws_instance" "ec2_instance" {
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.mvp_sg.id]
   tags = {
-    Name = var.ec2_instance_name
+    Name    = var.ec2_instance_name
+    Version = var.custom_ami_version
   }
 }
 
