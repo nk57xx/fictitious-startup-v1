@@ -1,0 +1,48 @@
+name: EC2-Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+        ami_version:
+            required: true
+            description: 'AMI Version'
+
+#permissions:
+#  contents: read
+#  id-token: write
+
+env:
+  TF_TOKEN: ${{ secrets.TF_TOKEN }}
+
+jobs:
+    deploy-ec2:
+        name: EC2 Deployment
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: terraform
+        steps:
+            - name: Repository Checkout
+              uses: actions/checkout@v4
+
+            - name: Terraform Workflow
+              uses: hashicorp/setup-terraform@v3
+              with:
+                terraform_version: "1.9.7"
+                cli_config_credentials_token: ${{ env.TF_TOKEN }}     # API_TOKEN for Terrafom
+
+            - name: Terraform Init
+              id: init
+              run: terraform init
+
+            - name: Terraform Plan
+              id: plan
+              run: terraform plan -var "custom_ami_version=${{ var.custom_ami_version }}"
+
+            - name: Terraform Apply
+              id: apply
+              run: terraform apply -var "custom_ami_version=${{ var.custom_ami_version }}" -auto-approve
+
+            - name: Public IP Output
+              run: |
+                echo URL="http://$(terraform output ec2_public_ip | tr -d '""')" >> $GITHUB_OUTPUT
