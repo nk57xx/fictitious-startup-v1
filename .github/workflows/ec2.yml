@@ -37,11 +37,11 @@ jobs:
 
             - name: Terraform Plan
               id: plan
-              run: terraform plan -var "custom_ami_version=${{ var.custom_ami_version }}"
+              run: terraform plan -var "custom_ami_version=${{ inputs.ami_version }}"
 
             - name: Terraform Apply
               id: apply
-              run: terraform apply -var "custom_ami_version=${{ var.custom_ami_version }}" -auto-approve
+              run: terraform apply -var "custom_ami_version=${{ inputs.ami_version }}" -auto-approve
 
             - name: Public IP Output
               run: |
