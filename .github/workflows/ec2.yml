@@ -28,7 +28,7 @@ jobs:
             - name: Terraform Workflow
               uses: hashicorp/setup-terraform@v3
               with:
-                terraform_version: "1.9.7"
+                terraform_version: "1.9.8"
                 cli_config_credentials_token: ${{ env.TF_TOKEN }}     # API_TOKEN for Terrafom
 
             - name: Terraform Init

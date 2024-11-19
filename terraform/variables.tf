@@ -41,5 +41,5 @@ variable "ec2_instance_type" {
 variable "az" {
   description = "Availability zone"
   type        = string
-  default     = "eu-west-1a"
+  default     = "eu-west-1c"
 }
