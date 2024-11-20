@@ -28,9 +28,9 @@ data "tfe_outputs" "network" {
 #Create EC2 instance using custom AMI
 
 resource "aws_instance" "ec2_instance" {
-  ami                         = data.aws_ami.custom_ami.id
-  instance_type               = var.ec2_instance_type
-  availability_zone           = var.az
+  ami           = data.aws_ami.custom_ami.id
+  instance_type = var.ec2_instance_type
+  #  availability_zone           = var.az
   subnet_id                   = data.tfe_outputs.network.values.public_subnets[0]
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.mvp_sg.id]
