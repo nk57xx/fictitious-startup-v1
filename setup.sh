@@ -87,7 +87,7 @@ After=network.target
 User=$USER
 Group=www-data
 WorkingDirectory=$APP_DIR
-ExecStart=$PWD/venv/bin/gunicorn \
+ExecStart=$PWD/app/bin/gunicorn \
           --workers 3 \
           --bind unix:/tmp/gunicorn.sock \
           cloudtalents.wsgi:application
