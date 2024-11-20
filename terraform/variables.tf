@@ -38,11 +38,11 @@ variable "ec2_instance_type" {
   default     = "t2.micro"
 }
 
-variable "az" {
-  description = "Availability zone"
-  type        = string
-  default     = "eu-west-1c"
-}
+#variable "az" {
+#  description = "Availability zone"
+#  type        = string
+#  default     = "eu-west-1c"
+#}
 
 variable "policy_arn" {
   description = "IAM policy ARN"

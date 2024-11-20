@@ -43,9 +43,10 @@ resource "aws_instance" "ec2_instance" {
 
 resource "aws_security_group" "mvp_sg" {
   name        = "mvp_sg"
-  description = "Allow inbound traffic"
+  description = "Allow inbound traffic on port 80"
   vpc_id      = data.tfe_outputs.network.values.vpc
   ingress {
+    description = "HTTP"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
