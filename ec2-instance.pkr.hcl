@@ -60,6 +60,7 @@ build {
     "sudo mkdir /opt/app",
     "echo move files into directory",
     "sudo mv /tmp/* /opt/app"
+    "sudo chmod +x /opt/app/setup.sh"
     ]
   }
 
