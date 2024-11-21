@@ -70,7 +70,7 @@ build {
 
   post-processor "amazon-ami-management" {
     regions = ["eu-west-1"]
-    identifier = var.custom_ami_name
+    identifier = local.ami_name
     keep_releases = 2
   }
 }
