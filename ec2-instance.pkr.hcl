@@ -30,7 +30,7 @@ source "amazon-ebs" "ubuntu" {
   instance_type = "t2.micro"
   region        = local.region
   tags = {
-    Amazon_AMI_Management_Identifier = var.ami_name
+    Amazon_AMI_Management_Identifier = local.ami_name
   }
 
   source_ami_filter {
