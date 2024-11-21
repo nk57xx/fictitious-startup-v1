@@ -36,8 +36,9 @@ resource "aws_instance" "ec2_instance" {
   vpc_security_group_ids      = [aws_security_group.mvp_sg.id]
   iam_instance_profile        = aws_iam_instance_profile.ec2_ssm.name
   tags = {
-    Name    = var.ec2_instance_name
-    Version = var.custom_ami_version
+    Name                             = var.ec2_instance_name
+    Version                          = var.custom_ami_version
+    Amazon_AMI_Management_Identifier = var.custom_ami_name
   }
 }
 
