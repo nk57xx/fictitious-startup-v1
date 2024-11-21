@@ -29,6 +29,9 @@ source "amazon-ebs" "ubuntu" {
   ami_name      = "${local.ami_name}-${var.version}"
   instance_type = "t2.micro"
   region        = local.region
+  tags = {
+    Amazon_AMI_Management_Identifier = var.ami_name
+  }
 
   source_ami_filter {
     filters = {
