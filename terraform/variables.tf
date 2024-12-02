@@ -89,3 +89,9 @@ variable "replication_instance_class" {
 variable "replication_task_id" {
   default = ""
 }
+
+variable "s3_name" {
+  description = "S3 name"
+  type        = string
+  default     = "cloudtalents-fictitious-startup"
+}

@@ -1,5 +1,5 @@
 resource "aws_dms_replication_instance" "aws_dms_replication_instance" {
-  #count                       = 0
+  count                       = 0
   allocated_storage           = 10
   apply_immediately           = true
   multi_az                    = false
@@ -61,6 +61,7 @@ resource "aws_security_group" "dms_sec_group" {
 }
 
 resource "aws_dms_endpoint" "aws_dms_endpoint_source" {
+  count         = 0
   database_name = "mvp"
   endpoint_id   = "ec2"
   endpoint_type = "source"
@@ -73,6 +74,7 @@ resource "aws_dms_endpoint" "aws_dms_endpoint_source" {
 }
 
 resource "aws_dms_endpoint" "aws_dms_endpoint_target" {
+  count         = 0
   database_name = "mvp"
   endpoint_id   = "rds"
   endpoint_type = "target"
@@ -85,12 +87,14 @@ resource "aws_dms_endpoint" "aws_dms_endpoint_target" {
 }
 
 resource "aws_dms_replication_task" "aws_dms_replication_task" {
-  #count                    = 0
-  migration_type = "full-load"
-  #replication_instance_arn = aws_dms_replication_instance.aws_dms_replication_instance[count.index].replication_instance_arn
-  replication_instance_arn = aws_dms_replication_instance.aws_dms_replication_instance.replication_instance_arn
-  replication_task_id      = "database-replication"
-  source_endpoint_arn      = aws_dms_endpoint.aws_dms_endpoint_source.endpoint_arn
-  target_endpoint_arn      = aws_dms_endpoint.aws_dms_endpoint_target.endpoint_arn
-  table_mappings           = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"%\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
+  count                    = 0
+  migration_type           = "full-load"
+  replication_instance_arn = aws_dms_replication_instance.aws_dms_replication_instance[count.index].replication_instance_arn
+  #replication_instance_arn = aws_dms_replication_instance.aws_dms_replication_instance.replication_instance_arn
+  replication_task_id = "database-replication"
+  source_endpoint_arn = aws_dms_endpoint.aws_dms_endpoint_source[0].endpoint_arn
+  #source_endpoint_arn = aws_dms_endpoint.aws_dms_endpoint_source.endpoint_ar
+  target_endpoint_arn = aws_dms_endpoint.aws_dms_endpoint_target[0].endpoint_arn
+  #target_endpoint_arn = aws_dms_endpoint.aws_dms_endpoint_target.endpoint_arn
+  table_mappings = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"object-locator\":{\"schema-name\":\"%\",\"table-name\":\"%\"},\"rule-action\":\"include\"}]}"
 }
