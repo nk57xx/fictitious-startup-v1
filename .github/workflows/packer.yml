@@ -32,16 +32,7 @@ jobs:
             - name: Init Packer
               run: "packer init ./ec2-instance.pkr.hcl"
 
-            # Step 4: Save variables in script
-            - name: Create and save bash script
-              run: |
-                sudo cat > secrets.sh <<EOF
-                export SECRET_KEY='${{ secrets.SECRET_KEY }}'
-                export DB_USER='${{ secrets.DB_USER }}'
-                export DB_PASSWORD='${{ secrets.DB_PASSWORD }}'
-                EOF
-
-            # Step 5: Setup AWS Creds
+            # Step 4: Setup AWS Creds
             - name: Configure AWS credentials
               uses: aws-actions/configure-aws-credentials@v4
               with:
@@ -49,6 +40,6 @@ jobs:
                 role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
                 aws-region: ${{ secrets.AWS_REGION }}
             
-            # Step 6: Packer Build
+            # Step 5: Packer Build
             - name: Packer build
               run: packer build -on-error=abort -var "vpc_id=${{ secrets.VPC_ID }}" -var "subnet_id=${{ secrets.SUBNET_ID }}" -var "version=${{ github.ref_name }}" ./ec2-instance.pkr.hcl

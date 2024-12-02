@@ -68,6 +68,12 @@ variable "db_password" {
   sensitive = true
 }
 
+variable "secret_key" {
+  default   = ""
+  type      = string
+  sensitive = true
+}
+
 variable "rds_instance_name" {
   description = "RDS instance name"
   type        = string

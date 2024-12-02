@@ -48,3 +48,26 @@ resource "aws_iam_role_policy_attachment" "policy-attach-s3" {
   role       = aws_iam_role.ec2_ssm.name
   policy_arn = aws_iam_policy.ec2_s3.arn
 }
+
+resource "aws_iam_policy" "ec2_ssm_parameter" {
+  name        = "ec2_ssm_parameter_policy"
+  description = "Allow webserver to read SSM parameter store"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "ssm:DescribeParameter",
+          "ssm:GetParameter"
+        ],
+        "Resource" : "arn:aws:ssm:eu-west-1:${data.aws_caller_identity.current.account_id}:parameter/cloudtalents/startup/*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "policy-attach-ssm-parameter" {
+  role       = aws_iam_role.ec2_ssm.name
+  policy_arn = aws_iam_policy.ec2_ssm_parameter.arn
+}
