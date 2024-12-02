@@ -53,6 +53,13 @@ resource "aws_security_group" "mvp_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress {
+    description     = "DMS"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.dms_sec_group.id]
+  }
   egress {
     from_port   = 0
     to_port     = 0
